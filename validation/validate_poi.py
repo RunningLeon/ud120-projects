@@ -28,5 +28,8 @@ labels, features = targetFeatureSplit(data)
 
 
 ### it's all yours from here forward!  
+from sklearn.model_selection import train_test_split
+features_train, labels_train, features_test, labels_test = train_test_split(features,labels, test_size=0.4, random_state=55)
+
 
 

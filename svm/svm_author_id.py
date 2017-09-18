@@ -19,12 +19,30 @@ from email_preprocess import preprocess
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
-
+### reduce train data set by 99%
+# features_train = features_train[:len(features_train)/100]
+# labels_train = labels_train[:len(labels_train)/100]
 
 
 #########################################################
 ### your code goes here ###
 
 #########################################################
+def get_svc_acc( c=1., k="rbf"):
+    from sklearn.svm import SVC
+    # clf = SVC(C=1., kernel="linear")
+    clf = SVC(C=c, kernel=k)
+    pred = clf.fit(features_train, labels_train).predict(features_test)
+    i = 0
+    for x in pred:
+        if x == 1:
+            i += 1
+    print "There are %d samples classified in 1 class!"%i
+    from sklearn.metrics import  accuracy_score
 
-
+    acc = accuracy_score(labels_test, pred)
+    print "C=%f.1, acc=%.3f" %( c, acc )
+# get_svc_acc(c=10.)
+# get_svc_acc(c=100.)
+# get_svc_acc(c=1000.)
+get_svc_acc(c=10000.)

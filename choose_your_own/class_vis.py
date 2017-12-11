@@ -9,7 +9,7 @@ def prettyPicture(clf, X_test, y_test):
     y_min = 0.0; y_max = 1.0
     
     # Plot the decision boundary. For that, we will assign a color to each
-    # point in the mesh [x_min, m_max]x[y_min, y_max].
+    # point in the mesh [x_min, x_max]x[y_min, y_max].
     h = .01  # step size in the mesh
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
     Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])

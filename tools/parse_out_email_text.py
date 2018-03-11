@@ -2,7 +2,7 @@
 
 from nltk.stem.snowball import SnowballStemmer
 import string
-
+import nltk
 def parseOutText(f):
     """ given an opened email file f, parse out all text below the
         metadata block at the top
@@ -25,18 +25,16 @@ def parseOutText(f):
     if len(content) > 1:
         ### remove punctuation
         text_string = content[1].translate(string.maketrans("", ""), string.punctuation)
-        ##remove whitespaces from begining and ending of the strin
+        ##remove whitespaces from begining and ending of the string
         text_string = text_string.strip()
-        ### project part 2: comment out the line below
-        # words = text_string
 
+        ### project part 2: comment out the line below
+        # words = text_string.split()
+        words = nltk.word_tokenize(text_string)
         ### using SnowballStemmer to extract stem from each word
         stemmer = SnowballStemmer( "english", ignore_stopwords=True )
-        seperated_words = text_string.split(" ")
-        for w in seperated_words :
-            if w != " " and w != "" :
-                words += stemmer.stem( w ) + " "
-        words = words.strip()
+        stemmed_words = [stemmer.stem(w) for w in words]
+        words = " ".join(stemmed_words)
         ### split the text string into individual words, stem each word,
         ### and append the stemmed word to words (make sure there's a single
         ### space between each stemmed word)

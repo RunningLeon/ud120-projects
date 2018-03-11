@@ -15,15 +15,12 @@ def outlierCleaner(predictions, ages, net_worths):
 
     ### your code goes here
     ###predictions ,ages, net_worths type are numpy.ndarray, need to add [i][0]
-    i = 0
-    max = len(predictions)
-    while(i < max):
+    for i in range(len(predictions)):
         p =  predictions[i][0]
         a = ages[i][0]
         n = net_worths[i][0]
         err = round(abs(p-n)/n, 4 )
         cleaned_data.append((a, n, err))
-        i =i + 1
     # sort list using lambda small to large
     cleaned_data = sorted(cleaned_data, key=lambda d:d[2])
     #remove 10% outliers points

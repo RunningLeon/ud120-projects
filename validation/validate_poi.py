@@ -26,10 +26,23 @@ data = featureFormat(data_dict, features_list)
 labels, features = targetFeatureSplit(data)
 
 
+# data = featureFormat(data_dict, features_list, sort_keys='../tools/python2_lesson13_keys.pkl')
 
+print 'There are %d examples in this data set'%len(labels)
 ### it's all yours from here forward!  
 from sklearn.model_selection import train_test_split
-features_train, labels_train, features_test, labels_test = train_test_split(features,labels, test_size=0.4, random_state=55)
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score
+### split data
+features_train, features_test, labels_train , labels_test = train_test_split(features,labels, test_size=0.3, random_state=42)
+
+print 'Start train on DT'
+clf = DecisionTreeClassifier()
+clf = clf.fit(features_train, labels_train)
+pred = clf.predict(features_test)
+acc = accuracy_score(labels_test, pred)
+print 'Accuracy for decision tree is %.3f'%acc
 
 
 

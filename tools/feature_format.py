@@ -55,7 +55,8 @@ def featureFormat( dictionary, features, remove_NaN=True, remove_all_zeroes=True
     # second branch is for compatibility on final project.
     if isinstance(sort_keys, str):
         import pickle
-        keys = pickle.load(open(sort_keys, "rb"))
+        with open(sort_keys, 'rb') as f:
+            keys = pickle.load(f)
     elif sort_keys:
         keys = sorted(dictionary.keys())
     else:
@@ -72,7 +73,12 @@ def featureFormat( dictionary, features, remove_NaN=True, remove_all_zeroes=True
             value = dictionary[key][feature]
             if value=="NaN" and remove_NaN:
                 value = 0
-            tmp_list.append( float(value) )
+            try:
+                value = float(value)
+            except ValueError:
+                # print 'Value error when convert [%s] into float type within feature[%s]...'%(value, feature)
+                value = "NaN"
+            tmp_list.append(value)
 
         # Logic for deciding whether or not to add the data point.
         append = True

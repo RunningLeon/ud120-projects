@@ -40,8 +40,9 @@ print "predict time is %f.3 s"%round(end_time_predict-start_time_predict,3)
 
 from sklearn.metrics import  accuracy_score
 acc = accuracy_score(labels_test, pred)
-print acc
-
+print "accuracy is %f.3" % acc
+scor = clf.score(features_test, labels_test)
+print "score is %f.3" % scor
 #########################################################
 
 

@@ -33,16 +33,16 @@ def get_svc_acc( c=1., k="rbf"):
     # clf = SVC(C=1., kernel="linear")
     clf = SVC(C=c, kernel=k)
     pred = clf.fit(features_train, labels_train).predict(features_test)
-    i = 0
-    for x in pred:
-        if x == 1:
-            i += 1
-    print "There are %d samples classified in 1 class!"%i
+    class_1 = sum(pred)
+    class_0 = len(pred) - class_1
+
+    print "There are %d samples classified in 1 class and \n %d samples classified in 0 class!"%(class_1, class_0)
     from sklearn.metrics import  accuracy_score
 
     acc = accuracy_score(labels_test, pred)
     print "C=%f.1, acc=%.3f" %( c, acc )
-# get_svc_acc(c=10.)
+
+get_svc_acc(k='linear')
 # get_svc_acc(c=100.)
 # get_svc_acc(c=1000.)
-get_svc_acc(c=10000.)
+# get_svc_acc(c=10000.)

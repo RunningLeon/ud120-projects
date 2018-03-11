@@ -27,7 +27,6 @@ features_train, features_test, labels_train, labels_test = preprocess()
 # data wrangling
 print "Shape of training data: ({}, {})".format(features_train.shape[0], features_train.shape[1])
 print "Shape of testing data: ({}, {})".format(features_test.shape[0], features_test.shape[1])
-print features_train[0]
 # quit()
 
 ## Data modeling with decision tree

@@ -52,18 +52,16 @@ feature_2 = "exercised_stock_options"
 feature_3 = "total_payments"
 feature_4 = "from_messages"
 poi  = "poi"
-# features_list = [poi, feature_1, feature_2]
+features_list = [poi, feature_1, feature_2]
 ### salary vs from_messages
-features_list = [poi, feature_1, feature_4]
+# features_list = [poi, feature_1, feature_4]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
 # find max ,min in feature_2, remove NaN, change feature_format.py line 36 change into below line
 # features, remove_NaN=True, remove_all_zeroes=True, remove_any_zeroes=False, sort_keys = False
-salary = []
-for s, e in finance_features:
-    salary.append(s)
-print "max salary: %d, min salary: %d "%(max(salary), min(salary))
+salary_min, salary_max = finance_features[0].min(), finance_features[0].max()
+print "max salary: %d, min salary: %d "%(salary_max, salary_min)
 
 ### using MinMaxScaler to scaling feature
 from sklearn.preprocessing import MinMaxScaler
@@ -72,7 +70,7 @@ scaler = scaler.fit(finance_features)
 finance_features = scaler.transform(finance_features)
 
 #transform data
-# print scaler.transform([[200000., 1000000.]])
+print scaler.transform([[200000., 1000000.]])
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to
@@ -91,6 +89,6 @@ pred = KMeans(n_clusters=2).fit_predict(data)
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
 try:
-    Draw(pred, finance_features, poi, mark_poi=False, name="clusters.pdf", f1_name=feature_1, f2_name=feature_2 )
+    Draw(pred, finance_features, poi, mark_poi=True, name="clusters.pdf", f1_name=feature_1, f2_name=feature_2 )
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
